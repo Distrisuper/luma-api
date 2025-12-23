@@ -15,15 +15,12 @@ app.use("/v1/orders", ordersRoutes);
 app.use("/v1/articles", articlesRoutes);
 const PORT = process.env.PORT || 3000;
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("DB conectada");
+app.listen(PORT, () => {
+  console.log(`API corriendo en puerto ${PORT}`);
+});
 
-    app.listen(PORT, () => {
-      console.log(`API corriendo en puerto ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Error al conectar DB", err);
-  });
+AppDataSource.initialize()
+  .then(() => console.log("DB conectada"))
+  .catch((err) => console.error("Error DB:", err));
+
 export default app;
