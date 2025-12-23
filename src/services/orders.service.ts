@@ -11,6 +11,9 @@ export class OrdersService {
     order.location_type = data.location_type;
     order.location_id = data.location_id;
     order.status = data.status;
+    // Ajustar fecha a UTC-3: restar 3 horas para que MySQL (UTC) la guarde correctamente
+    const now = new Date();
+    order.created_at = now;
 
     order.items = data.products.map((product) => {
       const item = new OrderItem();
