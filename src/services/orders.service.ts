@@ -39,7 +39,12 @@ export class OrdersService {
 
   async getAll() {
     const orderRepository = AppDataSource.getRepository(Order);
-    return await orderRepository.find({ relations: ["items"] });
+    return await orderRepository.find(
+      { 
+        relations: ["items"], 
+        order: {'created_at': 'DESC'}
+      }
+    );
   }
 
   async updateStatus(data: UpdateStatusOrderInput, order_id: number) {
