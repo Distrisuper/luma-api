@@ -1,19 +1,12 @@
-// services/erpAuthService.ts
 import axios from "axios";
 import { erpTokenStore } from "../utils/erpTokenStorage";
-
-const ERP_URL = process.env.URL_ERP_API_MORPHI;
-const ERP_USER = process.env.ERP_API_USERNAME;
-const ERP_PASSWORD = process.env.ERP_API_PASSWORD;
+import { Config } from "../utils/config";
 
 export async function loginToERP() {
   try {
-    console.log(`${ERP_URL}/v3/auth/login`);
-    console.log(ERP_USER);
-    console.log(ERP_PASSWORD);
-    const response = await axios.post(`${ERP_URL}/v3/auth/login`, {
-      username: ERP_USER,
-      password: ERP_PASSWORD,
+    const response = await axios.post(`${Config.ERP_API.BASE_URL}/v3/auth/login`, {
+      username: Config.ERP_API.USER,
+      password: Config.ERP_API.PASSWORD,
     });
   
     if (response.status !== 200) {

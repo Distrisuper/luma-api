@@ -42,7 +42,7 @@ export class OrdersService {
     return await orderRepository.find(
       { 
         relations: ["items"], 
-        order: {'created_at': 'DESC'}
+        order: {'created_at': 'ASC'}
       }
     );
   }
