@@ -9,6 +9,8 @@ import { Order } from "./Order";
 
 export type Area = "bar" | "kitchen";
 
+export type OrderItemStatus = "pending" | "delivered";
+
 @Entity("order_items")
 export class OrderItem {
   @PrimaryGeneratedColumn()
@@ -31,6 +33,13 @@ export class OrderItem {
     enum: ["bar", "kitchen"],
   })
   area!: Area;
+
+  @Column({
+    type: "enum",
+    enum: ["pending", "delivered"],
+    default: "pending",
+  })
+  status!: OrderItemStatus;
 
   @ManyToOne(() => Order, (order) => order.items, {
     onDelete: "CASCADE",

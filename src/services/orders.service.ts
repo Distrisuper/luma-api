@@ -49,11 +49,29 @@ export class OrdersService {
 
   async updateStatus(data: UpdateStatusOrderInput, order_id: number) {
     const orderRepository = AppDataSource.getRepository(Order);
-    const order = await orderRepository.findOne({ where: { id: order_id } });
+    const orderItemRepository = AppDataSource.getRepository(OrderItem);
+    
+    const order = await orderRepository.findOne({ 
+      where: { id: order_id },
+      relations: ["items"]
+    });
+    
     if (!order) {
       throw new Error("Order not found");
     }
-    order.status = data.status;
-    return await orderRepository.save(order);
+    
+    const itemsToUpdate = order.items.filter(item => item.area === data.area);
+    
+    if (itemsToUpdate.length > 0) {
+      itemsToUpdate.forEach(item => {
+        item.status = "delivered";
+      });
+      await orderItemRepository.save(itemsToUpdate);
+    }
+    
+    return await orderRepository.findOne({
+      where: { id: order_id },
+      relations: ["items"]
+    });
   }
 }

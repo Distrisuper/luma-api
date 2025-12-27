@@ -40,7 +40,6 @@ export class OrdersController {
   updateStatus = async (req: Request, res: Response) => {
     try {
       const validatedData = req.body as UpdateStatusOrderInput;
-      console.log(req.params.id);
       const order_id = parseInt(req.params.id);
       const order = await this.service.updateStatus(validatedData, order_id);
       res.status(200).json({

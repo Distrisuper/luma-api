@@ -11,6 +11,7 @@ export const CreateOrderItemSchema = z.object({
 
 export const updateStatusOrderSchema = z.object({
   status: z.enum(["pending", "preparing", "ready", "delivered"]),
+  area: z.enum(["bar", "kitchen"]),
 });
 
 export const CreateOrderSchema = z.object({
