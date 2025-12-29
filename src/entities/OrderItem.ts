@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from "typeorm";
 import { Order } from "./Order";
 
@@ -40,6 +41,9 @@ export class OrderItem {
     default: "pending",
   })
   status!: OrderItemStatus;
+
+  @CreateDateColumn({ name: "date_update" })
+  date_update!: Date;
 
   @ManyToOne(() => Order, (order) => order.items, {
     onDelete: "CASCADE",
