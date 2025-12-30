@@ -18,6 +18,7 @@ export const CreateOrderSchema = z.object({
   location_type: z.enum(["mesa", "carpa", "llevar"]),
   location_id: z.string().min(1),
   status: z.enum(["pending", "preparing", "ready", "delivered"]),
+  description: z.string().optional(),
   products: z.array(CreateOrderItemSchema).min(1),
 });
 

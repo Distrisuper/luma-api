@@ -34,6 +34,9 @@ export class Order {
   })
   status!: OrderStatus;
 
+  @Column()
+  description!: string;
+
   @OneToMany(() => OrderItem, (item) => item.order, {
     cascade: true,
   })
