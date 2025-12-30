@@ -2,6 +2,7 @@ import { CreateOrderInput, UpdateStatusOrderInput } from "../schemas/orders.sche
 import { AppDataSource } from "../db/data-source";
 import { Order } from "../entities/Order";
 import { OrderItem } from "../entities/OrderItem";
+import { MoreThanOrEqual } from "typeorm";
 
 export class OrdersService {
   async create(data: CreateOrderInput) {
@@ -39,8 +40,14 @@ export class OrdersService {
 
   async getAll() {
     const orderRepository = AppDataSource.getRepository(Order);
+    const tenHoursAgo = new Date();
+    tenHoursAgo.setHours(tenHoursAgo.getHours() - 10);
+    
     return await orderRepository.find(
       { 
+        where: {
+          created_at: MoreThanOrEqual(tenHoursAgo)
+        },
         relations: ["items"], 
         order: {'created_at': 'ASC'}
       }
