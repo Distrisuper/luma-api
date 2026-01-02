@@ -2,7 +2,7 @@ import { ErpClientService } from "./erpClientService";
 import { CacheService } from "./cacheService";
 import { AppDataSource } from "../db/data-source";
 import { Article } from "../entities/articles";
-import sseManager from "../sse/sseManager";
+//import sseManager from "../sse/sseManager";
 const CACHE_TTL = 60 * 60 * 3; // 3 hours
 
 export class ArticlesService {
@@ -31,7 +31,7 @@ export class ArticlesService {
     article.STOCK = quantity;
     await AppDataSource.getRepository(Article).save(article);
     await this.cacheService.delete("articles");
-    sseManager.broadcast("article-stock-updated", articleId,quantity);
+    //sseManager.broadcast("article-stock-updated", articleId,quantity);
     return { success: true, data: article };
   }
 }
