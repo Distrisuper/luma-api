@@ -16,4 +16,18 @@ export class ArticlesController {
       });
     }
   }
+  updateArticleStock = async (req: Request, res: Response) => {
+    try {
+      const articleId = req.params.id;
+      const quantity = req.body.quantity
+      const article = await this.service.updateArticleStock(articleId, quantity);
+      res.status(200).json(article);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error updating article stock",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
 }

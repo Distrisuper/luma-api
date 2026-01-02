@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Order } from "../entities/Order";
 import { OrderItem } from "../entities/OrderItem";
+import { Article } from "../entities/articles";
 
 
 export const AppDataSource = new DataSource({
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 
-  entities: [Order, OrderItem],
+  entities: [Order, OrderItem,Article],
   synchronize: false,
 
   extra: {

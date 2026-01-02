@@ -8,7 +8,7 @@ import {
 import { OrderItem } from "./OrderItem";
 
 export type OrderStatus = "pending" | "preparing" | "ready" | "delivered";
-export type LocationType = "mesa" | "carpa" | "llevar";
+export type LocationType = "mesa" | "carpa" | "camastro";
 
 @Entity("orders")
 export class Order {
@@ -20,7 +20,7 @@ export class Order {
 
   @Column({
     type: "enum",
-    enum: ["mesa", "carpa", "llevar"],
+    enum: ["mesa", "carpa", "camastro"],
   })
   location_type!: LocationType;
 
